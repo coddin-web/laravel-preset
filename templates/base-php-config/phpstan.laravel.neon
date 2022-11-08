@@ -1,0 +1,52 @@
+includes:
+    - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+#    ignoreErrors:
+#        - '#Method App\\Http\\Middleware\\Authenticate\:\:redirectTo\(\) has a nullable return type declaration.#'
+
+    strictRules:
+        # strictCalls clashes with larastan and will still throw errors on things larastan fixes
+        strictCalls: false
+
+    ergebnis:
+        classesAllowedToBeExtended:
+            - Illuminate\Foundation\Testing\TestCase
+            - Tests\TestCase
+
+            - Illuminate\Console;
+            - Illuminate\Foundation\Console\Kernel
+
+            - Illuminate\Database\Eloquent\Collection
+
+            - Illuminate\Database\Eloquent\Model
+            - Illuminate\Database\Eloquent\Relations\Pivot
+            - Illuminate\Foundation\Auth\User
+
+            - Laravel\Nova\Resource
+            - Laravel\Nova\Dashboards\Main
+            - Laravel\Nova\NovaApplicationServiceProvider
+
+            - Illuminate\Support\ServiceProvider
+            - Illuminate\Foundation\Support\Providers\AuthServiceProvider
+            - Illuminate\Foundation\Support\Providers\EventServiceProvider
+            - Illuminate\Foundation\Support\Providers\RouteServiceProvider
+
+            - Illuminate\Foundation\Exceptions\Handler
+
+            - Illuminate\Routing\Controller
+
+            - Illuminate\Foundation\Http\Kernel
+
+            - Illuminate\Auth\Middleware\Authenticate
+            - Illuminate\Cookie\Middleware\EncryptCookies
+            - Illuminate\Foundation\Http\Middleware\PreventRequestsDuringMaintenance
+            - Illuminate\Foundation\Http\Middleware\TrimStrings
+            - Illuminate\Foundation\Http\Middleware\VerifyCsrfToken
+            - Illuminate\Http\Middleware\TrustHosts
+            - Illuminate\Http\Middleware\TrustProxies
+            - Illuminate\Routing\Middleware\ValidateSignature
+            - Illuminate\Mail\Mailable
+
+            - Spatie\LaravelData\Support\Validation\ValidationRule
+            - Laravel\Nova\Actions\Action
