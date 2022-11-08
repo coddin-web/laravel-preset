@@ -1,10 +1,8 @@
-<p align="center" style="background: black">
+<p align="center">
   <br />
-<br />
   <a href="https://preset.dev">
-    <img width="100" src="https://coddin.nl/images/logo-white-ds.svg" alt="Logo of Preset">
+    <img width="100" src="https://coddin.nl/images/logo-yellow.svg" alt="Logo of Preset">
   </a>
-  <br />
   <br />
 </p>
 
