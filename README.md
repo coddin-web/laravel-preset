@@ -7,11 +7,11 @@
 </p>
 
 <h2 align="center">Coddin Laravel Preset</h2>
-```
+<pre>
 composer create-project laravel/laravel projectname
 cd projectname
 npx @preset/cli apply coddin-web/laravel-preset
-```
+</pre>
 
 <br />
 
