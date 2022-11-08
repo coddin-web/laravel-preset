@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "author": "Falko Woudstra <falko@coddin.nl>",
+  "license": "MIT",
+  "preset": "preset.ts",
+  "devDependencies": {
+    "@preset/core": "^0.7.2",
+    "@types/node": "^18.11.9"
+  }
+}
