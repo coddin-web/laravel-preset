@@ -49,4 +49,3 @@ parameters:
             - Illuminate\Mail\Mailable
 
             - Spatie\LaravelData\Support\Validation\ValidationRule
-            - Laravel\Nova\Actions\Action

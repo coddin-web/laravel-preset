@@ -22,10 +22,7 @@ parameters:
     ignoreErrors:
         - '#Access to an undefined property App\\Models\\[a-zA-Z]+\:\:\$uuid.#'
         - '#Constructor in App\\Collections\\[a-zA-Z0-9\\\:\$]+Collection has parameter [a-zA-Z0-9\\\:\$]+ with default value.#'
-        - '#Method App\\Data\\VoucherPriceData::__construct\(\) has parameter \$voucherCodes with a nullable type declaration.#'
-        - '#Method App\\Services\\PaymentService::createPayment\(\) has parameter \$issuer with a nullable type declaration.#'
-        - '#Method App\\Services\\PaymentService::createPayment\(\) has parameter \$issuer with null as default value.#'
-        - '#Method App\\Repositories\\PaymentRepository::storePaymentWithIdentifier\(\) has parameter \$paymentIssuer with a nullable type declaration.#'
+
 
     checkMissingIterableValueType: true
     treatPhpDocTypesAsCertain: true

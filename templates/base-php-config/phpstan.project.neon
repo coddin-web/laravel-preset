@@ -7,5 +7,3 @@ parameters:
         classesAllowedToBeExtended:
             - App\Http\Controllers\Controller
             - Spatie\LaravelData\Data
-            - App\Data\TheaterHallConfig\Figures\Data\AbstractFigureData
-            - App\Data\TheaterHallConfig\Figures\Position\FigurePositionData
