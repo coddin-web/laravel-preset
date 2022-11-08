@@ -1,13 +1,19 @@
-<p align="center">
+<p align="center" style="background: black">
   <br />
+<br />
   <a href="https://preset.dev">
-    <img width="100" src="https://raw.githubusercontent.com/preset/preset/main/.github/assets/logo.svg" alt="Logo of Preset">
+    <img width="100" src="https://coddin.nl/images/logo-white-ds.svg" alt="Logo of Preset">
   </a>
+  <br />
   <br />
 </p>
 
-<h2 align="center">laravel-preset</h2>
-<pre><div align="center">npx @preset/cli apply username//Users/falkowoudstra/PhpstormProjects/laravel-preset</div></pre>
+<h2 align="center">Coddin Laravel Preset</h2>
+```bash
+composer create-project laravel/laravel projectname
+cd projectname
+npx @preset/cli apply coddin-web/laravel-preset
+```
 
 <br />
 
