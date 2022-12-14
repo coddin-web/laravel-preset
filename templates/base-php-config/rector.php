@@ -19,6 +19,15 @@ use Rector\Php80\Rector\NotIdentical\StrContainsRector;
 use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
 use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Set\ValueObject\LevelSetList;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationBasedOnParentClassMethodRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnDirectArrayRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromReturnNewRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictBoolReturnExprRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictConstantReturnRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNativeCallRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNewArrayRector;
+use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedCallRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictTypedPropertyRector;
 use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
 
@@ -29,9 +38,16 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
     $rectorConfig->rule(FinalizeClassesWithoutChildrenRector::class);
+    $rectorConfig->rule(ReturnTypeFromReturnDirectArrayRector::class);
+    $rectorConfig->rule(ReturnTypeFromReturnNewRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictBoolReturnExprRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictConstantReturnRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictNativeCallRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictNewArrayRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictTypedCallRector::class);
     $rectorConfig->rule(ReturnTypeFromStrictTypedPropertyRector::class);
-    $rectorConfig->rule(ReturnTypeDeclarationRector::class);
-    $rectorConfig->rule(UnionTypesRector::class);
+    $rectorConfig->rule(AddReturnTypeDeclarationBasedOnParentClassMethodRector::class);
+    $rectorConfig->rule(AddVoidReturnTypeWhereNoReturnRector::class);
     $rectorConfig->rule(StringableForToStringRector::class);
     $rectorConfig->rule(StrStartsWithRector::class);
     $rectorConfig->rule(StrEndsWithRector::class);
