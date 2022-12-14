@@ -29,9 +29,16 @@ return static function (RectorConfig $rectorConfig): void {
 
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
     $rectorConfig->rule(FinalizeClassesWithoutChildrenRector::class);
+    $rectorConfig->rule(ReturnTypeFromReturnDirectArrayRector::class);
+    $rectorConfig->rule(ReturnTypeFromReturnNewRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictBoolReturnExprRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictConstantReturnRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictNativeCallRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictNewArrayRector::class);
+    $rectorConfig->rule(ReturnTypeFromStrictTypedCallRector::class);
     $rectorConfig->rule(ReturnTypeFromStrictTypedPropertyRector::class);
-    $rectorConfig->rule(ReturnTypeDeclarationRector::class);
-    $rectorConfig->rule(UnionTypesRector::class);
+    $rectorConfig->rule(AddReturnTypeDeclarationBasedOnParentClassMethodRector::class);
+    $rectorConfig->rule(AddVoidReturnTypeWhereNoReturnRector::class);
     $rectorConfig->rule(StringableForToStringRector::class);
     $rectorConfig->rule(StrStartsWithRector::class);
     $rectorConfig->rule(StrEndsWithRector::class);
