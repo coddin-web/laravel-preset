@@ -1,0 +1,82 @@
+image: coddin/laravel:php8.2
+
+definitions:
+  steps:
+    - step: &backend-build
+        name: Build backend
+        script:
+          # Dirty hack, figure out how to build a container and set the default user to non-root.
+          - export COMPOSER_ALLOW_SUPERUSER=1
+          - php --version
+          - composer --version
+          - composer config http-basic.nova.laravel.com "${NOVA_USER}" "${NOVA_PASSWORD}"
+          - composer install
+        artifacts:
+          - vendor/**
+    - step: &codestyle
+        name: Codestyle
+        script:
+          - ./vendor/bin/phpcs --standard=./phpcs_codestyle.xml --report=checkstyle -q -n app nova-components tests >> phpcs_checkstyle.xml
+          # Fix needed for atlassian/checkstyle-report
+          - mkdir -p storage/framework/testing/disks && chmod -R 777 storage/framework/testing
+        after-script:
+          - pipe: atlassian/checkstyle-report:0.4.0
+            variables:
+              CHECKSTYLE_RESULT_PATTERN: .*/phpcs_checkstyle.xml
+              CHECKSTYLE_REPORT_TITLE: PHPCodeSniffer Checkstyle report
+              CHECKSTYLE_REPORT_ID: phpcs-checkstyle
+              REPORT_FAIL_SEVERITY: error
+    - step: &static
+        name: Static analysis
+        script:
+          # This project uses encryption, hence this fix is needed
+          - touch .env
+          - echo "APP_KEY=" >> .env
+          - php ./artisan key:generate
+          - ./vendor/bin/phpstan analyse --memory-limit=2G --error-format=checkstyle >> phpstan_checkstyle.xml
+          # Fix needed for atlassian/checkstyle-report
+          - mkdir -p storage/framework/testing/disks && chmod -R 777 storage/framework/testing
+        after-script:
+          - pipe: atlassian/checkstyle-report:0.4.0
+            variables:
+              CHECKSTYLE_RESULT_PATTERN: .*/phpstan_checkstyle.xml
+              CHECKSTYLE_REPORT_TITLE: PHPStan Checkstyle report
+              CHECKSTYLE_REPORT_ID: phpstan-checkstyle
+              REPORT_FAIL_SEVERITY: error
+    - step: &unit
+        name: PHPUnit + coverage
+        script:
+          - ./vendor/bin/phpunit -c phpunit.xml.dist --coverage-html reports/ --coverage-clover coverage/clover.xml --log-junit test-reports/junit.xml
+          # Dirty hack, figure out how to build a container and set the default user to non-root.
+          - export COMPOSER_ALLOW_SUPERUSER=1
+          - composer phpcoverage
+
+pipelines:
+  pull-requests:
+    '{feature/*,bugfix/*,hotfix/*,epic/*}':
+      - step: *backend-build
+      - parallel:
+          - step: *codestyle
+          - step: *static
+          - step: *unit
+
+  branches:
+    development:
+      - step: *backend-build
+      - parallel:
+          - step: *codestyle
+          - step: *static
+          - step: *unit
+      - step:
+          name: Deploy
+          deployment: Development
+          artifacts:
+            download: false
+          script:
+            - composer global config http-basic.nova.laravel.com "${NOVA_USER}" "${NOVA_PASSWORD}"
+            - composer install --prefer-dist --no-progress --no-interaction --no-dev --optimize-autoloader
+            - php artisan nova:publish
+            - npm install --ignore-scripts
+            - npm run build
+            - cat public/build/manifest.json
+            - dep deploy --tag=development
