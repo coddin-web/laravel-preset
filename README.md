@@ -1,23 +1,22 @@
 <p align="center">
-  <br />
-  <a href="https://preset.dev">
+  <a href="https://coddin.nl">
     <img width="100" src="https://coddin.nl/images/logo-yellow.svg" alt="Logo of Preset">
   </a>
-  <br />
 </p>
 
-<h2 align="center">Coddin Laravel Preset</h2>
-<pre>
+## Coddin Laravel Preset
+
+```
 composer create-project laravel/laravel projectname
 cd projectname
 npx @preset/cli apply coddin-web/laravel-preset
-</pre>
+```
 
-<br />
+## Contains
 
-<div align="center">
-  This preset was made by Falko Woudstra.
-  <br />
-  <br />
-  <a href="https://preset.dev">Learn more</a>
-</div>
+This preset contains an opinionated set of rules for PHPStan, PHPCS and PHPUnit.
+It contains PHPStan's strict and deprecation rules and the very strict library "ergebnis".
+
+Next to that a basic, but usable Bitbucket Pipelines file is included with a deployer file for CI and Deployment.
+
+This repository is maintained by <a href="https://coddin.nl">Coddin;</a>
