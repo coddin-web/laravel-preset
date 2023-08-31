@@ -7,22 +7,24 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
 
-    - ./phpstan.project.neon
-    - ./phpstan.laravel.neon
-    - ./phpstan.ergebnis.neon
+    - phpstan/project.neon
+    - phpstan/laravel.neon
+    - phpstan/ergebnis.neon
 
 parameters:
     tmpDir: var/cache/phpstan
     paths:
         - app
-        - tests
+        - database
+        # - tests
+
+    excludePaths:
+        # - database/seeders
+        # Ignore Spatie's migrations for permission management
+        - database/migrations/2023_03_09_133722_create_permission_tables.php
+        - database/migrations/2023_03_09_133723_add_teams_fields.php
 
     level: 9
-
-    ignoreErrors:
-        - '#Access to an undefined property App\\Models\\[a-zA-Z]+\:\:\$uuid.#'
-        - '#Constructor in App\\Collections\\[a-zA-Z0-9\\\:\$]+Collection has parameter [a-zA-Z0-9\\\:\$]+ with default value.#'
-
 
     checkMissingIterableValueType: true
     treatPhpDocTypesAsCertain: true

@@ -1,50 +1,29 @@
 <?php
+
 namespace Deployer;
 
 require 'recipe/laravel.php';
 require 'contrib/rsync.php';
-require 'contrib/php-fpm.php';
 
 // This is a base file for our laravel projects.
 // It should be edited to fit the project.
 
 // Config
-set('application', 'APPLICATION_NAME_HERE');
-set('php_fpm_version', '8.1');
-set('repository', 'git@github.com:coddin-web/REPOSITORY_NAME_HERE.git');
+set('application', 'abro-work-order-portal');
+set('repository', 'git@bitbucket.com:coddin-web/abro-work-order-portal-portal.git');
 
-add('shared_files', []);
+set('shared_files', []);
 add('shared_dirs', []);
 add('writable_dirs', []);
 
 // Hosts
 
-host('HOST_NAME_HERE')
-    ->setHostname('0.0.0.0')
-    ->set('remote_user', 'REMOTE_USER_HERE')
-    ->set('rsync_src', '/home/runner/work/REMOTE_USER_HERE/REMOTE_USER_HERE')
-    ->set('deploy_path', '/var/www/REMOTE_USER_HERE');
+import('deploy/hosts.yml');
 
 // Tasks
 add('rsync', [
-    'exclude' => [
-        '.git*',
-        '.env*',
-        '_ide_*',
-        'storage/',
-        'vendor/',
-        'tests/',
-        'node_modules/',
-        '.github',
-        '.php*',
-        'phpcs*',
-        'phpstan.neon',
-        'phpunit.xml.dist',
-        'README.md',
-        'deploy.php',
-        'server.php',
-    ],
-    'options' => ['delete', 'force'],
+    ...\json_decode(\file_get_contents(__DIR__ . '/deploy/rsync-exclude.json'), true),
+    'options' => ['delete', 'force', 'links'],
 ]);
 after('deploy:prepare', 'rsync');
 
@@ -60,14 +39,17 @@ task('opcache:clear', function () {
 
 desc('Deploys your project');
 task('deploy', [
-    'deploy:prepare',
+    'deploy:info',
+    'deploy:setup',
+    'deploy:lock',
+    'deploy:release',
+    'rsync',
     'deploy:shared',
-    'deploy:vendors',
+    'deploy:writable',
     'artisan:storage:link',
     'artisan:optimize',
     'artisan:migrate',
     'deploy:publish',
     'opcache:clear',
-    'php-fpm:reload',
     'artisan:queue:restart',
 ]);

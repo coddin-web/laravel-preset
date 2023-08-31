@@ -1,0 +1,20 @@
+parameters:
+    ergebnis:
+        noExtends:
+            classesAllowedToBeExtended:
+                - App\Models\Model
+                - App\Http\Controllers\Controller
+
+                # Filament
+                - Filament\Resources\Pages\CreateRecord
+                - Filament\Resources\Pages\EditRecord
+                - Filament\Resources\Pages\ListRecords
+                - Filament\Resources\Pages\ViewRecord
+                - Filament\Forms\Components\TextInput
+                - Filament\Pages\Dashboard
+                - Filament\Resources\Resource
+                - Filament\Forms\Components\Component
+                - Filament\Widgets\Widget
+                - Filament\Resources\RelationManagers\RelationManager
+                - Filament\Resources\Pages\Page
+                - Filament\PanelProvider

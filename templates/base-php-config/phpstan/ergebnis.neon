@@ -1,0 +1,15 @@
+includes:
+    - ../vendor/ergebnis/phpstan-rules/rules.neon
+
+parameters:
+    ergebnis:
+        noNullableReturnTypeDeclaration:
+            enabled: false
+        noParameterWithNullableTypeDeclaration:
+            enabled: false
+        noParameterWithNullDefaultValue:
+            enabled: false
+        noExtends:
+            classesAllowedToBeExtended:
+                - Exception
+                - LogicException

@@ -1,9 +1,0 @@
-parameters:
-    ignoreErrors:
-        - '#Method App\\Casts\\[a-zA-Z]+\:\:cast\(\) has parameter \$context with no value type specified in iterable type array.#'
-        - '#Parameter \#1 \$[a-zA-Z]+ of class App\\Collections\\[a-zA-Z]+Collection constructor expects [a-zA-Z\\\[\],|<>\s]+ given.#'
-
-    ergebnis:
-        classesAllowedToBeExtended:
-            - App\Http\Controllers\Controller
-            - Spatie\LaravelData\Data

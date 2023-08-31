@@ -1,7 +1,0 @@
-includes:
-    - vendor/ergebnis/phpstan-rules/rules.neon
-
-parameters:
-    ergebnis:
-        classesAllowedToBeExtended:
-            - Exception
