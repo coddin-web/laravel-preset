@@ -3,8 +3,6 @@ includes:
 
 parameters:
     ignoreErrors:
-        - '#^Method App\\Http\\Middleware\\Authenticate\:\:redirectTo\(\) has a nullable return type declaration\.$#'
-        - '#Method App\\Data\\Casts\\[a-zA-Z]+\:\:cast\(\) has parameter \$context with no value type specified in iterable type array.#'
 
     strictRules:
         # strictCalls clashes with larastan and will still throw errors on things larastan fixes
