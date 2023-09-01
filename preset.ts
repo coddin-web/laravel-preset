@@ -7,15 +7,18 @@ export default definePreset({
     },
     handler: async () => {
         await extractTemplates({
+            title: 'Add all default files such as phpstan.neon, rector and .editorconfig',
             from: 'base-php-config',
         });
 
         await executeCommand({
+            title: 'Allow codesniffer to be installed as a composer plugin',
             command: 'composer',
             arguments: ['config', '--no-plugins', 'allow-plugins.dealerdirect/phpcodesniffer-composer-installer', 'true']
         });
 
         await installPackages({
+            title: 'Install dev packages',
             for: 'php',
             dev: true,
             additionalArgs: ['--no-interaction'],
@@ -42,6 +45,7 @@ export default definePreset({
         });
 
         await installPackages({
+            title: 'Install Laravel Data and \\Safe',
             for: 'php',
             dev: false,
             packages: [
@@ -51,6 +55,7 @@ export default definePreset({
         });
 
         await editFiles({
+            title: 'composer.json scripts and set to php ^8.2',
             files: 'composer.json',
             operations: [
                 {
@@ -83,11 +88,42 @@ export default definePreset({
             ],
         });
 
-        await executeCommand({command: 'composer', arguments: ['run', 'rector', '-n']});
+        await executeCommand({
+            title: 'Run rector',
+            command: 'composer',
+            arguments: ['run', 'rector', '-n'],
+        });
 
-        await executeCommand({command: 'php', arguments: ['artisan', 'coddin-stubs:install']});
+        await executeCommand({
+            title: 'Run phpcs fix',
+            command: 'composer',
+            arguments: ['run', 'phpcs-fix', '-n'],
+            ignoreExitCode: true,
+        });
+
+        await executeCommand({
+            title: 'Install stubs',
+            command: 'php',
+            arguments: ['artisan', 'coddin-stubs:install'],
+        });
 
         await editFiles({
+            title: 'Newline in config/app.php',
+            files: [
+                'config/app.php',
+            ],
+            operations: [{
+                type: 'add-line',
+                lines: [
+                    "\r\n //This will be removed by the next command. We only need the newline.",
+                ],
+                indent: 0,
+                position: 158,
+            }],
+        });
+
+        await editFiles({
+            title: 'Remove useless comments',
             files: [
                 'app/Models/User.php',
                 'app/Providers/AuthServiceProvider.php',
@@ -107,6 +143,7 @@ export default definePreset({
         });
 
         await editFiles({
+            title: 'Disable phpcs and phpstan for empty() check in RedirectIfAuthenticated.php',
             files: [
                 'app/Http/Middleware/RedirectIfAuthenticated.php',
             ],
@@ -128,6 +165,42 @@ export default definePreset({
             }],
         });
 
-        await executeCommand({command: 'composer', arguments: ['run', 'phpcs-fix', '-n'], ignoreExitCode: true});
+        await editFiles({
+            title: 'Replace shorthand ternary operator with null coalesce operator in RouteServiceProvider.php',
+            files: [
+                'app/Providers/RouteServiceProvider.php',
+            ],
+            operations: [{
+                type: 'update-content',
+                update: (content: string): string => {
+                    return content.replace('id ?: $request', 'id ?? $request');
+                },
+            }],
+        });
+
+        await editFiles({
+            title: 'Fix long line in TrustProxies.php',
+            files: [
+                'app/Http/Middleware/TrustProxies.php',
+            ],
+            operations: [{
+                type: 'update-content',
+                update: (content: string): string => {
+                    return content.replaceAll(' | ', '\n        | ');
+                },
+            }],
+        });
+
+        await executeCommand({
+            title: 'Run phpcs fix',
+            command: 'composer',
+            arguments: ['run', 'phpcs-fix', '-n'],
+            ignoreExitCode: true,
+        });
+
+        await executeCommand({
+            title: 'Add strict type declarations and latest final class definitions',
+            command: './final-strict-fix.sh',
+        });
     },
 })
