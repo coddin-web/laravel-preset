@@ -27,7 +27,6 @@ export default definePreset({
                 'dg/bypass-finals',
                 'ergebnis/phpstan-rules',
                 'mockery/mockery',
-                'nunomaduro/collision',
                 'nunomaduro/larastan',
                 'phpcompatibility/php-compatibility',
                 'phpstan/phpstan-beberlei-assert',
