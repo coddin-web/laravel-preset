@@ -11,6 +11,21 @@ export default definePreset({
             from: 'base-php-config',
         });
 
+        await editFiles({
+            title: 'composer.json set to php ^8.3',
+            files: 'composer.json',
+            operations: [
+                {
+                    type: 'edit-json',
+                    merge: {
+                        "require": {
+                            "php": "^8.3",
+                        },
+                    },
+                },
+            ],
+        });
+
         await executeCommand({
             title: 'Allow codesniffer to be installed as a composer plugin',
             command: 'composer',
@@ -35,7 +50,7 @@ export default definePreset({
                 'phpstan/phpstan-phpunit',
                 'phpstan/phpstan-strict-rules',
                 'phpunit/phpunit',
-                'rector/rector',
+                'rector/rector:dev-main',
                 'rregeer/phpunit-coverage-check',
                 'slevomat/coding-standard',
                 'squizlabs/php_codesniffer',
@@ -54,15 +69,12 @@ export default definePreset({
         });
 
         await editFiles({
-            title: 'composer.json scripts and set to php ^8.2',
+            title: 'composer.json scripts',
             files: 'composer.json',
             operations: [
                 {
                     type: 'edit-json',
                     merge: {
-                        "require": {
-                            "php": "^8.2",
-                        },
                         "scripts": {
                             "phpcs": "phpcs --standard=./phpcs_codestyle.xml -n app config database routes tests",
                             "phpcs-fix": "phpcbf --standard=./phpcs_codestyle.xml -n app config database routes tests",
