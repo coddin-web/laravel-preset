@@ -30,10 +30,6 @@ parameters:
                 - Illuminate\Database\Eloquent\Relations\Pivot
                 - Illuminate\Foundation\Auth\User
 
-                - Laravel\Nova\Resource
-                - Laravel\Nova\Dashboards\Main
-                - Laravel\Nova\NovaApplicationServiceProvider
-
                 - Illuminate\Support\ServiceProvider
                 - Illuminate\Foundation\Support\Providers\AuthServiceProvider
                 - Illuminate\Foundation\Support\Providers\EventServiceProvider
@@ -55,8 +51,3 @@ parameters:
                 - Illuminate\Routing\Middleware\ValidateSignature
                 - Illuminate\Mail\Mailable
                 - Illuminate\Notifications\Notification
-
-                - Spatie\LaravelData\Support\Validation\ValidationRule
-                - Spatie\LaravelData\Normalizers\ModelNormalizer
-                - Spatie\LaravelData\Data
-                - Spatie\Csp\Policies\Basic
