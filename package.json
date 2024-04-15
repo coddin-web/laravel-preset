@@ -1,6 +1,9 @@
 {
   "private": true,
   "author": "Falko Woudstra <falko@coddin.nl>",
+  "contributors": [
+    "Marius Posthumus <marius@coddin.nl>"
+  ],
   "license": "MIT",
   "preset": "preset.ts",
   "devDependencies": {

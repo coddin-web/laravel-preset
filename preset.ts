@@ -1,10 +1,7 @@
-import {editFiles, executeCommand} from "@preset/core";
+import { editFiles, executeCommand } from "@preset/core";
 
 export default definePreset({
     name: 'laravel-preset',
-    options: {
-        // ...
-    },
     handler: async () => {
         await extractTemplates({
             title: 'Add all default files such as phpstan.neon, rector and .editorconfig',
@@ -42,8 +39,7 @@ export default definePreset({
                 'dg/bypass-finals',
                 'ergebnis/phpstan-rules',
                 'mockery/mockery',
-                'nunomaduro/larastan',
-                'phpcompatibility/php-compatibility',
+                'larastan/larastan',
                 'phpstan/phpstan-beberlei-assert',
                 'phpstan/phpstan-deprecation-rules',
                 'phpstan/phpstan-mockery',
@@ -81,13 +77,13 @@ export default definePreset({
                             "phpstan": "phpstan analyse --memory-limit=6G",
                             "phpunit": "vendor/bin/phpunit -c phpunit.xml.dist",
                             "phpunitwcov": "XDEBUG_MODE=coverage vendor/bin/phpunit -c phpunit.xml.dist --coverage-html reports/ --coverage-clover coverage/clover.xml",
-                            "paratestwcov": "XDEBUG_MODE=coverage vendor/bin/paratest -c phpunit.xml.dist --coverage-html reports/ --coverage-clover coverage/clover.xml",
                             "phpcoverage": "coverage-check coverage/clover.xml 0",
                             "rector": " rector process database app",
                             "checkup": [
                                 "@phpcs",
                                 "@phpstan",
-                                "@phpunitwcov"
+                                "@phpunitwcov",
+                                "@phpcoverage"
                             ],
                             "coveragecheck": [
                                 "@phpunitwcov",
@@ -133,17 +129,20 @@ export default definePreset({
             }],
         });
 
+        await executeCommand({
+            title: 'Remove useless boilerplate test files',
+            command: 'rm',
+            arguments: ['-rf', 'tests/**/ExampleTest.php'],
+        });
+
         await editFiles({
             title: 'Remove useless comments',
             files: [
                 'app/Models/User.php',
-                'app/Providers/AuthServiceProvider.php',
                 'config/app.php',
-                'config/broadcasting.php',
                 'config/cache.php',
                 'database/factories/UserFactory.php',
                 'database/seeders/DatabaseSeeder.php',
-                'tests/Feature/ExampleTest.php',
             ],
             operations: [
                 ...Array(20).fill({
@@ -151,55 +150,6 @@ export default definePreset({
                     match: new RegExp('^\\s*//.*$', 'gm'),
                 }),
             ],
-        });
-
-        await editFiles({
-            title: 'Disable phpcs and phpstan for empty() check in RedirectIfAuthenticated.php',
-            files: [
-                'app/Http/Middleware/RedirectIfAuthenticated.php',
-            ],
-            operations: [{
-                type: 'add-line',
-                lines: '// @phpcs:disable',
-                indent: 8,
-                position: 19,
-            }, {
-                type: 'add-line',
-                lines: '// @phpstan-ignore-next-line',
-                indent: 8,
-                position: 20,
-            }, {
-                type: 'add-line',
-                lines: '// @phpcs:enable',
-                indent: 8,
-                position: 22,
-            }],
-        });
-
-        await editFiles({
-            title: 'Replace shorthand ternary operator with null coalesce operator in RouteServiceProvider.php',
-            files: [
-                'app/Providers/RouteServiceProvider.php',
-            ],
-            operations: [{
-                type: 'update-content',
-                update: (content: string): string => {
-                    return content.replace('id ?: $request', 'id ?? $request');
-                },
-            }],
-        });
-
-        await editFiles({
-            title: 'Fix long line in TrustProxies.php',
-            files: [
-                'app/Http/Middleware/TrustProxies.php',
-            ],
-            operations: [{
-                type: 'update-content',
-                update: (content: string): string => {
-                    return content.replaceAll(' | ', '\n        | ');
-                },
-            }],
         });
 
         await executeCommand({
@@ -212,6 +162,24 @@ export default definePreset({
         await executeCommand({
             title: 'Add strict type declarations and latest final class definitions',
             command: './final-strict-fix.sh',
+        });
+
+        await executeCommand({
+            title: 'Replace bootstrap/app.php with a new one pt.1',
+            command: 'rm',
+            arguments: ['bootstrap/app.php'],
+        });
+
+        await executeCommand({
+            title: 'Replace bootstrap/app.php with a new one pt.2',
+            command: 'cp',
+            arguments: ['overrides/bootstrap/app.php', 'bootstrap/app.php'],
+        });
+
+        await executeCommand({
+            title: 'Cleanup',
+            command: 'rm',
+            arguments: ['-rf', 'overrides', 'tests/Feature/ExampleTest.php', 'tests/Unit/ExampleTest.php', 'database/database.sqlite', 'phpunit.xml'],
         });
     },
 })

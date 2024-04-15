@@ -3,12 +3,6 @@ includes:
 
 parameters:
     ergebnis:
-        noNullableReturnTypeDeclaration:
-            enabled: false
-        noParameterWithNullableTypeDeclaration:
-            enabled: false
-        noParameterWithNullDefaultValue:
-            enabled: false
         noExtends:
             classesAllowedToBeExtended:
                 - Exception

@@ -1,7 +1,7 @@
 /public/build
 /public/hot
 /public/storage
-/public/vendor/nova
+/public/vendor
 
 /storage/*.key
 
@@ -31,14 +31,12 @@ yarn-error.log
 /.idea
 /.vscode
 
-reports
-coverage
+/reports
+/coverage
 
-stubs
+/stubs
 
 _ide_helper.php
 _ide_helper_models.php
-
-vite.config.js
 
 routes/test.php

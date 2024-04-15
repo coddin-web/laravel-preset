@@ -5,6 +5,8 @@ parameters:
                 - App\Models\Model
                 - App\Http\Controllers\Controller
 
+                - Spatie\LaravelData\Data
+
                 # Filament
                 - Filament\Resources\Pages\CreateRecord
                 - Filament\Resources\Pages\EditRecord
