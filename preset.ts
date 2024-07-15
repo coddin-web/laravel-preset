@@ -6,6 +6,7 @@ export default definePreset({
         await extractTemplates({
             title: 'Add all default files such as phpstan.neon, rector and .editorconfig',
             from: 'base-php-config',
+            extractDotFiles: true,
         });
 
         await editFiles({
