@@ -9,36 +9,40 @@
     beStrictAboutCoverageMetadata="true"
     bootstrap="tests/bootstrap.php"
 >
-    <testsuites>
-        <testsuite name="Unit">
-            <directory>./tests/Unit</directory>
-        </testsuite>
-        <testsuite name="Feature">
-            <directory>./tests/Feature</directory>
-        </testsuite>
-    </testsuites>
+  <testsuites>
+    <testsuite name="Unit">
+      <directory>./tests/Unit</directory>
+    </testsuite>
+    <testsuite name="Feature">
+      <directory>./tests/Feature</directory>
+    </testsuite>
+  </testsuites>
 
-    <source>
-        <include>
-            <directory>./app</directory>
-        </include>
-        <exclude>
-            <directory>./app/Models</directory>
-            <directory>./app/Providers</directory>
-        </exclude>
-    </source>
+  <source>
+    <include>
+      <directory>./app</directory>
+    </include>
+    <exclude>
+      <file>./app/Console/Kernel.php</file>
+      <file>./app/Http/Kernel.php</file>
+      <file>./app/Exception/Handler.php</file>
 
-    <php>
-        <env name="APP_ENV" value="testing"/>
-        <env name="APP_KEY" value="base64:Rxc/brtlM+Yj6lB5MFou+0nYKDsfXaki1OWfp50JJtI="/>
-        <env name="BCRYPT_ROUNDS" value="4"/>
-        <env name="CACHE_DRIVER" value="array"/>
-        <env name="DB_DATABASE" value="phpunit"/>
-        <env name="DB_USERNAME" value="root"/>
-        <env name="DB_PASSWORD" value=""/>
-        <env name="MAIL_MAILER" value="array"/>
-        <env name="QUEUE_CONNECTION" value="sync"/>
-        <env name="SESSION_DRIVER" value="array"/>
-        <env name="TELESCOPE_ENABLED" value="false"/>
-    </php>
+      <directory>./app/Models</directory>
+      <directory>./app/Providers</directory>
+    </exclude>
+  </source>
+
+  <php>
+    <env name="APP_ENV" value="testing"/>
+    <env name="APP_KEY" value="base64:Rxc/brtlM+Yj6lB5MFou+0nYKDsfXaki1OWfp50JJtI="/>
+    <env name="BCRYPT_ROUNDS" value="4"/>
+    <env name="CACHE_DRIVER" value="array"/>
+    <env name="DB_DATABASE" value="phpunit"/>
+    <env name="DB_USERNAME" value="root"/>
+    <env name="DB_PASSWORD" value=""/>
+    <env name="MAIL_MAILER" value="array"/>
+    <env name="QUEUE_CONNECTION" value="sync"/>
+    <env name="SESSION_DRIVER" value="array"/>
+    <env name="TELESCOPE_ENABLED" value="false"/>
+  </php>
 </phpunit>

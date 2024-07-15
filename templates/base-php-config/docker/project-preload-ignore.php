@@ -1,8 +1,9 @@
 <?php
 
 return [
-    "Livewire",
-    "Phpunit",
-    "DBAL",
-    "Database",
+    'Livewire',
+    'Phpunit',
+    'DBAL',
+    'Database',
+    'Collision'
 ];
