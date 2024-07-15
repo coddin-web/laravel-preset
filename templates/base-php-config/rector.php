@@ -15,7 +15,6 @@ use Rector\Php80\Rector\Identical\StrEndsWithRector;
 use Rector\Php80\Rector\Identical\StrStartsWithRector;
 use Rector\Php80\Rector\NotIdentical\StrContainsRector;
 use Rector\Php81\Rector\Property\ReadOnlyPropertyRector;
-use Rector\Privatization\Rector\Class_\FinalizeClassesWithoutChildrenRector;
 use Rector\Set\ValueObject\LevelSetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationBasedOnParentClassMethodRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddVoidReturnTypeWhereNoReturnRector;
@@ -37,7 +36,6 @@ return static function (RectorConfig $rectorConfig): void {
     ]);
 
     $rectorConfig->rule(InlineConstructorDefaultToPropertyRector::class);
-    $rectorConfig->rule(FinalizeClassesWithoutChildrenRector::class);
     $rectorConfig->rule(ReturnTypeFromReturnDirectArrayRector::class);
     $rectorConfig->rule(ReturnTypeFromReturnNewRector::class);
     $rectorConfig->rule(ReturnTypeFromStrictBoolReturnExprRector::class);

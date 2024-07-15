@@ -153,6 +153,31 @@ export default definePreset({
             ],
         });
 
+        await editFiles({
+            title: 'Add HasFactory to User model',
+            files: 'app/Models/User.php',
+            operations: [
+                {
+                    type: 'add-line',
+                    lines: [
+                        "/**",
+                        " * @use HasFactory<UserFactory>",
+                        " */",
+                    ],
+                    indent: 4,
+                    position: 10,
+                },
+                {
+                    type: 'add-line',
+                    lines: [
+                        "use Database\\Factories\\UserFactory;",
+                    ],
+                    indent: 0,
+                    position: 4,
+                },
+            ],
+        });
+
         await executeCommand({
             title: 'Run phpcs fix',
             command: 'composer',
