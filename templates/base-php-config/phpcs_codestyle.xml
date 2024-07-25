@@ -23,6 +23,7 @@
         </properties>
     </rule>
 
+    <!-- SlevomatCodingStandard -->
     <rule ref="SlevomatCodingStandard.Files.LineLength">
         <properties>
             <property name="lineLengthLimit" value="180"/>
@@ -39,6 +40,7 @@
 
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInCall" />
     <rule ref="SlevomatCodingStandard.Functions.RequireTrailingCommaInDeclaration" />
+    <rule ref="SlevomatCodingStandard.Functions.ArrowFunctionDeclaration" />
     <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
         <properties>
             <property name="withSpaces" value="no"/>
@@ -88,6 +90,7 @@
         <exclude name="Squiz.WhiteSpace.OperatorSpacing.SpacingBefore"/>
     </rule>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
+
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.ControlStructures.DisallowYodaConditions"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
@@ -98,6 +101,7 @@
     <rule ref="Generic.PHP.LowerCaseKeyword"/>
     <rule ref="Generic.Strings.UnnecessaryStringConcat"/>
     <rule ref="Generic.WhiteSpace.IncrementDecrementSpacing"/>
+
     <rule ref="PSR2.Classes.PropertyDeclaration"/>
     <rule ref="PSR2.Methods.MethodDeclaration"/>
     <rule ref="PSR2.Files.EndFileNewline"/>
